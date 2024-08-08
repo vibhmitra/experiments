@@ -1,0 +1,166 @@
+{
+  "kind": "youtube#SubscriptionListResponse",
+  "etag": "MUOrc7Oo4xabeAVVJ_IfvmqbI1E",
+  "nextPageToken": "DDDDD",
+  "pageInfo": {
+    "totalResults": 395,
+    "resultsPerPage": 50
+  },
+  "items": [
+    {
+      "kind": "youtube#subscription",
+      "etag": "BdYrzkgMt123",
+      "id": "7FyElD",
+      "snippet": {
+        "publishedAt": "2022-05-29T13:03:06.302349Z",
+        "title": "Aaron Fraser-Nash",
+        "description": "I was born to create! I love rapping, singing, producing, editing, designing, and trying to be funny. If you think I'm any good, please hit the subscribe button, I upload 2 songs every week, each one funnier than the last lol",
+        "resourceId": {
+          "kind": "youtube#channel",
+          "channelId": "UCnbIcS2C2SrUuDV7NX8mvRg"
+        },
+        "channelId": "",
+        "thumbnails": {
+          "default": {
+            "url": "https://yt3.ggpht.com/ytc/AIdro_muqD3PyjdpK7Upaj6-32WMCPK6ezKkKz5TYANXzRpJzf4=s88-c-k-c0x00ffffff-no-rj"
+          },
+          "medium": {
+            "url": "https://yt3.ggpht.com/ytc/AIdro_muqD3PyjdpK7Upaj6-32WMCPK6ezKkKz5TYANXzRpJzf4=s240-c-k-c0x00ffffff-no-rj"
+          },
+          "high": {
+            "url": "https://yt3.ggpht.com/ytc/AIdro_muqD3PyjdpK7Upaj6-32WMCPK6ezKkKz5TYANXzRpJzf4=s800-c-k-c0x00ffffff-no-rj"
+          }
+        }
+      },
+      "contentDetails": {
+        "totalItemCount": 1021,
+        "newItemCount": 1,
+        "activityType": "all"
+      }
+    },
+    {
+      "kind": "youtube#subscription",
+      "etag": "pgqb0",
+      "id": "7FyE",
+      "snippet": {
+        "publishedAt": "2020-07-16T18:27:00.59475Z",
+        "title": "Aaron Jack",
+        "description": "From Broke English Teacher to Uber Software Engineer to Remote Solo Software Developer.\nJoin the Freelance Code Bootcamp: https://freemote.com",
+        "resourceId": {
+          "kind": "youtube#channel",
+          "channelId": "UCRLEADhMcb8WUdnQ5_Alk7g"
+        },
+        "channelId": "",
+        "thumbnails": {
+          "default": {
+            "url": "https://yt3.ggpht.com/2Ic5G-MGcf0BGlxLo86TkUZILkxKCenzjCszCyVJSRcmn5xkEgtLgs4CBCkaK2YNoNdX4A66=s88-c-k-c0x00ffffff-no-rj"
+          },
+          "medium": {
+            "url": "https://yt3.ggpht.com/2Ic5G-MGcf0BGlxLo86TkUZILkxKCenzjCszCyVJSRcmn5xkEgtLgs4CBCkaK2YNoNdX4A66=s240-c-k-c0x00ffffff-no-rj"
+          },
+          "high": {
+            "url": "https://yt3.ggpht.com/2Ic5G-MGcf0BGlxLo86TkUZILkxKCenzjCszCyVJSRcmn5xkEgtLgs4CBCkaK2YNoNdX4A66=s800-c-k-c0x00ffffff-no-rj"
+          }
+        }
+      },
+      "contentDetails": {
+        "totalItemCount": 115,
+        "newItemCount": 1,
+        "activityType": "all"
+      }
+    },
+    {
+      "kind": "youtube#subscription",
+      "etag": "zS",
+      "id": "79i",
+      "snippet": {
+        "publishedAt": "2019-05-16T07:51:13.576604Z",
+        "title": "Abby Wolfe",
+        "description": "",
+        "resourceId": {
+          "kind": "youtube#channel",
+          "channelId": "UCfsWxAXjQ8ZlfId1_cFo9DQ"
+        },
+        "channelId": "",
+        "thumbnails": {
+          "default": {
+            "url": "https://yt3.ggpht.com/ytc/AIdro_mEP91blAvD6AClYKVqOEXdUhOl0wDLIfIVOD9u6kZh0V0=s88-c-k-c0x00ffffff-no-rj"
+          },
+          "medium": {
+            "url": "https://yt3.ggpht.com/ytc/AIdro_mEP91blAvD6AClYKVqOEXdUhOl0wDLIfIVOD9u6kZh0V0=s240-c-k-c0x00ffffff-no-rj"
+          },
+          "high": {
+            "url": "https://yt3.ggpht.com/ytc/AIdro_mEP91blAvD6AClYKVqOEXdUhOl0wDLIfIVOD9u6kZh0V0=s800-c-k-c0x00ffffff-no-rj"
+          }
+        }
+      },
+      "contentDetails": {
+        "totalItemCount": 21,
+        "newItemCount": 0,
+        "activityType": "all"
+      }
+    },
+    {
+      "kind": "youtube#subscription",
+      "etag": "y7uihku",
+      "id": "guiui7y8git86g",
+      "snippet": {
+        "publishedAt": "2023-02-27T18:52:10.652304Z",
+        "title": "Action Lab Shorts",
+        "description": "On this channel I give you short science tidbits that are awesome!",
+        "resourceId": {
+          "kind": "youtube#channel",
+          "channelId": "UCA19mAJURyYHbJzhfpqhpCA"
+        },
+        "channelId": "",
+        "thumbnails": {
+          "default": {
+            "url": "https://yt3.ggpht.com/ytc/AIdro_mqThtDOra3fnkHknLhRFhViwBHHQ-opwGBBR3diDcNicA=s88-c-k-c0x00ffffff-no-rj"
+          },
+          "medium": {
+            "url": "https://yt3.ggpht.com/ytc/AIdro_mqThtDOra3fnkHknLhRFhViwBHHQ-opwGBBR3diDcNicA=s240-c-k-c0x00ffffff-no-rj"
+          },
+          "high": {
+            "url": "https://yt3.ggpht.com/ytc/AIdro_mqThtDOra3fnkHknLhRFhViwBHHQ-opwGBBR3diDcNicA=s800-c-k-c0x00ffffff-no-rj"
+          }
+        }
+      },
+      "contentDetails": {
+        "totalItemCount": 539,
+        "newItemCount": 1,
+        "activityType": "all"
+      }
+    },
+    {
+      "kind": "youtube#subscription",
+      "etag": "nhjuiio98hohy7t6ygi",
+      "id": "gcfhy6uy65u",
+      "snippet": {
+        "publishedAt": "2019-04-01T14:20:39.874507Z",
+        "title": "Alan Walker",
+        "description": "🎵 Rocket League presents: ‘Neon Nights’ EP - Out Now 🎵",
+        "resourceId": {
+          "kind": "youtube#channel",
+          "channelId": "UCJrOtniJ0-NWz37R30urifQ"
+        },
+        "channelId": "",
+        "thumbnails": {
+          "default": {
+            "url": "https://yt3.ggpht.com/5NPuTDxN3DB7JiyOgwuPv5OV9lGG4_-AUYsFVpr-WLr11Lqi90krGfWmju26UhWmilRDA1qaEg=s88-c-k-c0x00ffffff-no-rj"
+          },
+          "medium": {
+            "url": "https://yt3.ggpht.com/5NPuTDxN3DB7JiyOgwuPv5OV9lGG4_-AUYsFVpr-WLr11Lqi90krGfWmju26UhWmilRDA1qaEg=s240-c-k-c0x00ffffff-no-rj"
+          },
+          "high": {
+            "url": "https://yt3.ggpht.com/5NPuTDxN3DB7JiyOgwuPv5OV9lGG4_-AUYsFVpr-WLr11Lqi90krGfWmju26UhWmilRDA1qaEg=s800-c-k-c0x00ffffff-no-rj"
+          }
+        }
+      },
+      "contentDetails": {
+        "totalItemCount": 597,
+        "newItemCount": 1,
+        "activityType": "all"
+      }
+    }
+ ]
+}
