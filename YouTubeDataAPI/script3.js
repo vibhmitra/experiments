@@ -1,4 +1,4 @@
-const files = ['./sublist1.txt', './sublist2.txt', './sublist3.txt', './sublist4.txt', './sublist5.txt', './sublist6.txt', './sublist7.txt', './sublist8.txt']; // Add your file paths here
+const files = ['./apiresponse.json']; // Add your file paths here
 
 Promise.all(files.map(file => fetch(file).then(response => response.json())))
   .then(allData => {
