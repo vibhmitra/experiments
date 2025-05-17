@@ -3,11 +3,17 @@
 # PlaylistID and an API Key is needed. 💁
 
 import requests
+import dotenv
+import os
+from dotenv import load_dotenv
 
-API_KEY = API_KEY
-PLAYLIST_ID = PLAYLIST_ID
 
-BASE_URL = "https://www.googleapis.com/youtube/v3/playlistItems"
+# Load environment variables from .env file
+load_dotenv()
+# Get API key and playlist ID from environment variables
+API_KEY = os.getenv("YOUTUBE_API_KEY")
+PLAYLIST_ID = os.getenv("YOUTUBE_PLAYLIST_ID")
+BASE_URL = os.getenv("YOUTUBE_API_URL")
 
 params = {
     "part": "snippet",
