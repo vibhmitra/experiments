@@ -183,3 +183,4 @@ cython_debug/
 # google oauth
 client_secrets_*.json
 token_*.pickle
+client_secret_v.json
