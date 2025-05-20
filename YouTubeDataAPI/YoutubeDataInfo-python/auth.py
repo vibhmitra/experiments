@@ -15,8 +15,8 @@ SCOPES = ['https://www.googleapis.com/auth/youtube.readonly']
 def get_authenticated_service():
     flow = InstalledAppFlow.from_client_secrets_file(CLIENT_SECRETS_FILE, SCOPES)
     auth_url, _ = flow.authorization_url()
-    credentials = flow.run_local_server(open_browser=False)
-    print(credentials)
-    return credentials
+    creds = flow.run_local_server(open_browser=False)
+    print(creds.to_json())
+    return creds
 
 get_authenticated_service()
