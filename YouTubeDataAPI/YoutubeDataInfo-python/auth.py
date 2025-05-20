@@ -19,7 +19,4 @@ def get_authenticated_service():
     print(credentials)
     return credentials
 
-
 get_authenticated_service()
-
-
