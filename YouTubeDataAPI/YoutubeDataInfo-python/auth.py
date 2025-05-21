@@ -21,8 +21,7 @@ def load_credentials():
         creds = read_credentials()
         return creds
     else:
-        return get_authenticated_manually()
-
+        return None
 
 # Oauth Flow | Auto (docs: https://googleapis.github.io/google-api-python-client/docs/oauth.html)
 def get_authenticated():
@@ -63,9 +62,11 @@ def get_credentials():
         if creds and creds.expired and creds.refresh_token:
             print('Refreshing Access Token...')
             creds.refresh(Request())
+            print(f"New Token Expiry: {creds.expiry}\n")
             write_credentials(creds)
         else:
             creds = get_authenticated_manually()
+    print(f"Using Old Token | Expiry: {creds.expiry}\n")
     return creds
 
 # 📞
