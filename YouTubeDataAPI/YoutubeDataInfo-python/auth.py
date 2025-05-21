@@ -63,12 +63,14 @@ def get_credentials():
         if creds and creds.expired and creds.refresh_token:
             print('Refreshing Access Token...')
             creds.refresh(Request())
+            write_credentials(creds)
         else:
             creds = get_authenticated_manually()
-            write_credentials(creds)
     return creds
 
 # 📞
 # get_authenticated_service()
 # get_authenticated_manually()
 # print(get_credentials().to_json())
+
+get_credentials()
