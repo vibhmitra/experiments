@@ -2,7 +2,6 @@
 import os
 import json
 import pickle
-from arrow import get
 from dotenv import dotenv_values
 
 from google_auth_oauthlib.flow import InstalledAppFlow
