@@ -74,3 +74,5 @@ def get_credentials():
 # get_authenticated_manually()
 
 get_credentials()
+print('Credentials loaded successfully.')
+print(get_credentials().to_json())
