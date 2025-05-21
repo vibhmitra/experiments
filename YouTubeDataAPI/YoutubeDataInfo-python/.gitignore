@@ -184,3 +184,4 @@ cython_debug/
 client_secrets_*.json
 token_*.pickle
 client_secret_v.json
+*.pickle
