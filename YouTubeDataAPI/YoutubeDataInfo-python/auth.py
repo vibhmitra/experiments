@@ -1,10 +1,10 @@
-# YouTubeDataInfo-Python
 # Import necessary libraries
 import os
 import json
 from dotenv import dotenv_values
 
 from google_auth_oauthlib.flow import InstalledAppFlow
+from google_auth_oauthlib.flow import Flow  # for manual auth
 
 # LOAD ENVIRONMENT VARIABLES
 ENV = dotenv_values('.env')
@@ -20,4 +20,18 @@ def get_authenticated_service():
     print(creds.to_json())
     return creds
 
-get_authenticated_service()
+# Temporary function to get the auth code manually
+def get_authenticated_manually():
+    flow = Flow.from_client_secrets_file(CLIENT_SECRETS_FILE, SCOPES, redirect_uri="http://localhost:8080")
+    auth_url, _ = flow.authorization_url()
+    print(f'Please go to this URL: {auth_url}')
+    code = input('Enter the authorization code: ')
+    flow.fetch_token(code=code)
+    creds = flow.credentials
+    print(creds.to_json())
+    return creds
+
+
+# 📞
+# get_authenticated_service()
+get_authenticated_manually()
