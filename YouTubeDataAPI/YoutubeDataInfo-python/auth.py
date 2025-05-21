@@ -13,6 +13,7 @@ ENV = dotenv_values('.env')
 CLIENT_SECRETS_FILE = os.path.join(os.path.dirname(__file__), ENV['CLIENT_SECRETS_JSON'])
 SCOPES = ['https://www.googleapis.com/auth/youtube.readonly']
 
+# Oauth Flow | Auto (docs: https://googleapis.github.io/google-api-python-client/docs/oauth.html)
 def get_authenticated_service():
     flow = InstalledAppFlow.from_client_secrets_file(CLIENT_SECRETS_FILE, SCOPES)
     auth_url, _ = flow.authorization_url()
