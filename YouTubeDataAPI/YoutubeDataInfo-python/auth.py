@@ -18,6 +18,7 @@ TOKEN_CREDS = f"{ENV['CLIENT_SECRETS_JSON'].replace('.json', '_token.pickle')}"
 
 def load_credentials():
     if os.path.exists(TOKEN_CREDS):
+        print(f"Loading Credentials from {TOKEN_CREDS}")
         creds = read_credentials()
         return creds
     else:
@@ -48,6 +49,7 @@ def get_authenticated_manually():
 def write_credentials(creds):
     with open(TOKEN_CREDS, "wb") as token_file:
         pickle.dump(creds, token_file)
+
 # Read Credentials from a file
 def read_credentials():
     with open(TOKEN_CREDS, "rb") as token_file:
@@ -65,13 +67,13 @@ def get_credentials():
             print(f"New Token Expiry: {creds.expiry}\n")
             write_credentials(creds)
         else:
+            print('No valid credentials available. Getting new credentials...')
             creds = get_authenticated_manually()
-    print(f"Using Old Token | Expiry: {creds.expiry}\n")
+    else:
+        print(f"Using Old Token | Expiry: {creds.expiry}\n")
     return creds
 
 # 📞
 # get_authenticated_service()
 # get_authenticated_manually()
 # print(get_credentials().to_json())
-
-get_credentials()
