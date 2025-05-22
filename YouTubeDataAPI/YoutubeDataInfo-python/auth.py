@@ -6,6 +6,7 @@ from dotenv import dotenv_values
 from google_auth_oauthlib.flow import InstalledAppFlow
 from google_auth_oauthlib.flow import Flow  # for manual auth
 from google.auth.transport.requests import Request
+from sympy import E
 
 from utils import get_tokens, clear_console
 
@@ -16,9 +17,8 @@ ENV = dotenv_values('.env')
 # Set up the path to the client secrets file
 CLIENT_SECRETS_FILE = os.path.join(os.path.dirname(__file__), ENV['CLIENT_SECRETS_JSON'])
 SCOPES = ['https://www.googleapis.com/auth/youtube.readonly']
-TOKEN_CREDS = get_tokens() or f"{os.path.dirname(__file__)}/token.pickle"
-
-print(f"Token File: {TOKEN_CREDS}")
+TOKEN_CREDS = f"{ENV['CLIENT_SECRETS_JSON'].replace('.json', '.pickle')}"
+# TOKEN_CREDS = get_tokens() or f"{os.path.dirname(__file__)}/token.pickle"
 
 def load_credentials():
     if os.path.exists(TOKEN_CREDS):
@@ -89,5 +89,3 @@ def get_credentials():
 # get_authenticated_service()
 # get_authenticated_manually()
 # print(get_credentials().to_json())
-
-get_credentials()
