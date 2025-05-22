@@ -6,7 +6,6 @@ from dotenv import dotenv_values
 from google_auth_oauthlib.flow import InstalledAppFlow
 from google_auth_oauthlib.flow import Flow  # for manual auth
 from google.auth.transport.requests import Request
-from sympy import E
 
 from utils import get_tokens, clear_console
 
