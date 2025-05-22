@@ -9,7 +9,8 @@ def clear_console():
 # Function to get available tokens
 def get_tokens():
     # Look for all the available .pickle files
-    files = os.listdir(os.path.dirname(__file__))
+    # files = os.listdir(os.path.dirname(__file__))
+    files = [f for f in os.listdir(os.path.dirname(__file__)) if f.endswith('.pickle')]
     # Ask user to select one
     print("Select a token file:")
     for i, file in enumerate(files):
@@ -22,7 +23,7 @@ def get_tokens():
     # Get user input
     while True:
         try:
-            choice = int(input("Enter the number of the file you want to use: "))
+            choice = int(input(">> Which pickle you want to Use : "))
             if choice < 0 or choice >= len(files):
                 raise ValueError
             break

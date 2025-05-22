@@ -16,7 +16,7 @@ ENV = dotenv_values('.env')
 # Set up the path to the client secrets file
 CLIENT_SECRETS_FILE = os.path.join(os.path.dirname(__file__), ENV['CLIENT_SECRETS_JSON'])
 SCOPES = ['https://www.googleapis.com/auth/youtube.readonly']
-TOKEN_CREDS = get_tokens() or 'something.pickle'
+TOKEN_CREDS = get_tokens() or f"{os.path.dirname(__file__)}/token.pickle"
 
 print(f"Token File: {TOKEN_CREDS}")
 
