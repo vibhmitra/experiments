@@ -1,12 +1,13 @@
 # Import necessary libraries
 import os
-import json
 import pickle
 from dotenv import dotenv_values
 
 from google_auth_oauthlib.flow import InstalledAppFlow
 from google_auth_oauthlib.flow import Flow  # for manual auth
 from google.auth.transport.requests import Request
+
+from utils import get_tokens, clear_console
 
 
 # LOAD ENVIRONMENT VARIABLES
@@ -15,7 +16,9 @@ ENV = dotenv_values('.env')
 # Set up the path to the client secrets file
 CLIENT_SECRETS_FILE = os.path.join(os.path.dirname(__file__), ENV['CLIENT_SECRETS_JSON'])
 SCOPES = ['https://www.googleapis.com/auth/youtube.readonly']
-TOKEN_CREDS = f"{ENV['CLIENT_SECRETS_JSON'].replace('.json', '_token.pickle')}"
+TOKEN_CREDS = get_tokens() or 'something.pickle'
+
+print(f"Token File: {TOKEN_CREDS}")
 
 def load_credentials():
     if os.path.exists(TOKEN_CREDS):
