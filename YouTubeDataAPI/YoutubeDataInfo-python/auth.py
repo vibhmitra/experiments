@@ -8,6 +8,7 @@ from google_auth_oauthlib.flow import InstalledAppFlow
 from google_auth_oauthlib.flow import Flow  # for manual auth
 from google.auth.transport.requests import Request
 
+
 # LOAD ENVIRONMENT VARIABLES
 ENV = dotenv_values('.env')
 
@@ -25,13 +26,21 @@ def load_credentials():
         return None
 
 # Oauth Flow | Auto (docs: https://googleapis.github.io/google-api-python-client/docs/oauth.html)
-def get_authenticated():
-    flow = InstalledAppFlow.from_client_secrets_file(CLIENT_SECRETS_FILE, SCOPES)
-    auth_url, _ = flow.authorization_url()
-    creds = flow.run_local_server(open_browser=False)
-    print(creds.to_json())
-    write_credentials(creds)
-    return creds
+def get_authenticated(manual_auth):
+    if not manual_auth:
+        try:
+            flow = InstalledAppFlow.from_client_secrets_file(CLIENT_SECRETS_FILE, SCOPES)
+            auth_url, _ = flow.authorization_url()
+            creds = flow.run_local_server(open_browser=False)
+            print(creds.to_json())
+        except Exception as error:
+            print(f"[!] Authentication Failed\nError Code: {error}")
+            return None
+        
+        write_credentials(creds)
+        return creds
+    else:
+        get_authenticated_manually()
 
 # Temporary function to get the auth code manually
 def get_authenticated_manually():
@@ -68,7 +77,7 @@ def get_credentials():
             write_credentials(creds)
         else:
             print('No valid credentials available. Getting new credentials...')
-            creds = get_authenticated_manually()
+            creds = get_authenticated(manual_auth=True)
     else:
         print(f"Using Old Token | Expiry: {creds.expiry}\n")
     return creds
@@ -77,3 +86,5 @@ def get_credentials():
 # get_authenticated_service()
 # get_authenticated_manually()
 # print(get_credentials().to_json())
+
+get_credentials()
