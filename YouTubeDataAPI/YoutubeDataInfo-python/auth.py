@@ -16,8 +16,8 @@ ENV = dotenv_values('.env')
 # Set up the path to the client secrets file
 CLIENT_SECRETS_FILE = os.path.join(os.path.dirname(__file__), ENV['CLIENT_SECRETS_JSON'])
 SCOPES = ['https://www.googleapis.com/auth/youtube.readonly']
-TOKEN_CREDS = f"{ENV['CLIENT_SECRETS_JSON'].replace('.json', '.pickle')}"
-# TOKEN_CREDS = get_tokens() or f"{os.path.dirname(__file__)}/token.pickle"
+# TOKEN_CREDS = f"{ENV['CLIENT_SECRETS_JSON'].replace('.json', '_token.pickle')}"
+TOKEN_CREDS = get_tokens() or f"{os.path.dirname(__file__)}/token.pickle"
 
 def load_credentials():
     if os.path.exists(TOKEN_CREDS):
