@@ -1,7 +1,7 @@
 # YoutubeDataInfo-python
 # main.py
-
-from auth import get_credentials
+import os
+# from auth import get_credentials
 from utils import clear_console
 
 
@@ -12,11 +12,7 @@ def display_menu():
     print("0. Exit")
 
 def handle_choice(choice):
-    actions = {
-        1: "Getting Sub Data...",
-        2: "Getting Playlist Data...",
-        0: "Exiting..."
-    }
+    actions = { 1: "Getting Sub Data...", 2: "Getting Playlist Data...", 0: "Exiting..."}
     
     if choice in actions:
         print(actions[choice])
@@ -40,3 +36,4 @@ def menu():
 
 if __name__ == "__main__":
     menu()
+    print(os.path.dirname(__file__))
