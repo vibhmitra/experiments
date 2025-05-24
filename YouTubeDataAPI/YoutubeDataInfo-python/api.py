@@ -9,7 +9,7 @@ youtube = googleapiclient.discovery.build('youtube', 'v3', credentials=creds)
 
 try:
     # Request the channel ID of the currently authorized user
-    channel_response = youtube.channels().list(part="snippet,contentDetails,statistics", forHandle='@PewDiePie').execute()
+    channel_response = youtube.channels().list(part="snippet,contentDetails,statistics", forHandle='@youtube').execute()
     
     # Extract Channel Metadata
     for item in channel_response["items"]:
