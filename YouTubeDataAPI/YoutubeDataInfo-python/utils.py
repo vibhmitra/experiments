@@ -1,5 +1,4 @@
 import os
-import select
 
 # clear_console()
 def clear_console():

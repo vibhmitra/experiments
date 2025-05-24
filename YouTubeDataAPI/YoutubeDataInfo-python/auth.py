@@ -1,6 +1,7 @@
 # Import necessary libraries
 import os
 import pickle
+import re
 from dotenv import dotenv_values
 
 from google_auth_oauthlib.flow import InstalledAppFlow
@@ -17,7 +18,12 @@ ENV = dotenv_values('.env')
 CLIENT_SECRETS_FILE = os.path.join(os.path.dirname(__file__), ENV['CLIENT_SECRETS_JSON'])
 SCOPES = ['https://www.googleapis.com/auth/youtube.readonly']
 # TOKEN_CREDS = f"{ENV['CLIENT_SECRETS_JSON'].replace('.json', '_token.pickle')}"
-TOKEN_CREDS = get_tokens() or f"{os.path.dirname(__file__)}/token.pickle"
+TOKEN_CREDS = None
+
+# Function to set the token credentials
+def set_token_creds():
+    global TOKEN_CREDS
+    TOKEN_CREDS = get_tokens() or f"{os.path.dirname(__file__)}/token.pickle"
 
 def load_credentials():
     if os.path.exists(TOKEN_CREDS):
@@ -70,6 +76,7 @@ def read_credentials():
 
 # Function to get the credentials
 def get_credentials():
+    set_token_creds()
     creds = load_credentials()
     if not creds or not creds.valid:
         if creds and creds.expired and creds.refresh_token:

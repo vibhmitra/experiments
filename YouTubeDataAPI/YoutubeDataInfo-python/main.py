@@ -1,9 +1,8 @@
 # YoutubeDataInfo-python
 # main.py
 import os
-# from auth import get_credentials
 from utils import clear_console
-
+import auth
 
 def display_menu():
     print("\nMenu:")
@@ -16,6 +15,8 @@ def handle_choice(choice):
     
     if choice in actions:
         print(actions[choice])
+        if choice == 1:
+            auth.get_credentials()
         return choice == 0  # Return True if exiting
     else:
         print("[!] Invalid choice. Please try again.\n")
