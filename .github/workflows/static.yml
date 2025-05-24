@@ -24,6 +24,8 @@ concurrency:
 jobs:
   # Single deploy job since we're just deploying
   deploy:
+  # By ME🤷🤷🤷
+    if: "contains(github.event.head_commit.message, '[deploy]')"
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}/YouTubeDataAPI
