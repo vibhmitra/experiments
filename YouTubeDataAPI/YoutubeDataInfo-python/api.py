@@ -2,9 +2,9 @@ import os
 import json
 import googleapiclient.discovery
 from googleapiclient.errors import HttpError
-from auth import get_credentials
+import auth
 
-creds = get_credentials()
+creds = auth.get_credentials()
 youtube = googleapiclient.discovery.build('youtube', 'v3', credentials=creds)
 
 try:
