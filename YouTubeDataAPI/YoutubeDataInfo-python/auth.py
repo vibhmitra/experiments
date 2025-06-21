@@ -13,6 +13,7 @@ from utils import get_tokens, clear_console
 
 # LOAD ENVIRONMENT VARIABLES
 ENV = dotenv_values('.env')
+KEY = ENV['YOUTUBE_API_KEY']
 
 # Set up the path to the client secrets file
 CLIENT_SECRETS_FILE = os.path.join(os.path.dirname(__file__), ENV['CLIENT_SECRETS_JSON'])

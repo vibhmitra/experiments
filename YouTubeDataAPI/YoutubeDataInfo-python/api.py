@@ -7,6 +7,8 @@ import auth
 creds = auth.get_credentials()
 youtube = googleapiclient.discovery.build('youtube', 'v3', credentials=creds)
 
+print(auth.KEY)
+
 try:
     # Request the channel ID of the currently authorized user
     channel_response = youtube.channels().list(part="snippet,contentDetails,statistics", forHandle='@youtube').execute()
