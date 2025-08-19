@@ -1,6 +1,7 @@
 # This is just a simple script that grabs list from a youtube playlist using YouTube Data API. ➕
 # It will try to get youtube video title and publishedAt time. 📺
 # PlaylistID and an API Key is needed. 💁
+# [NOTE] It only will grab Public Playlist as you will need OAuth Stuff to access private stufffs.
 
 import requests
 import dotenv
