@@ -1,65 +1,46 @@
-<!-- index.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>YouTube Subscription Visualizer</title>
-    <style>
-        body {
-            font-family: sans-serif;
-            margin: 20px;
-            background-color: #f4f4f4;
-            color: #333;
-        }
-        .container {
-            max-width: 900px;
-            margin: 0 auto;
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-        h1, h2 {
-            color: #d32f2f;
-        }
-        .section {
-            margin-bottom: 30px;
-            padding-bottom: 20px;
-            border-bottom: 1px solid #eee;
-        }
-        .section:last-child {
-            border-bottom: none;
-        }
-        .api-section h2 {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        .api-section ul {
-            list-style-type: '🎶';
-            padding-left: 20px;
-        }
-        .api-section li {
-            margin-bottom: 8px;
-        }
-        .api-section .emoji {
-            font-size: 1.2em;
-        }
-    </style>
+    <title>YouTube Data API v3</title>
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
+<body class="font-sans m-5 bg-[#f4f4f4] text-[#333]">
 
-    <div class="container">
+    <div class="max-w-[900px] mx-auto bg-white p-5 rounded-lg shadow-md">
         
-        <div class="section api-section">
-            <h2>🎶 Exploring the YouTube Data API v3 🎶</h2>
-            <ul>
-                <li>I'm current experimenting with YouTube Data API v3 to build a personal backup tool. 🛠️</li>
-                <li>Why? While Google Takeout is great, it doesn't give me the detailed timestamps I need, like the exact moment I liked a video or added something to a playlist. ⏳ My goal is to create a more comprehensive and chronological record of my YouTube history, giving me full control over my data. 🚀</li>
+        <div class="mb-[30px] pb-5 border-b border-[#eee] last:border-b-0">
+            <h2 class="flex items-center gap-2 text-[#d32f2f] text-2xl font-bold">
+                🎶 Exploring the YouTube Data API v3 🎶
+            </h2>
+            <ul class="list-none pl-5">
+                <li class="mb-2 before:content-['🎶'] before:mr-2">I'm current experimenting with YouTube Data API v3 to build a personal backup tool. 🛠️</li>
+                <li class="mb-2 before:content-['🎶'] before:mr-2">Why? While Google Takeout is great, it doesn't give me the detailed timestamps I need, like the exact moment I liked a video or added something to a playlist. ⏳ My goal is to create a more comprehensive and chronological record of my YouTube history, giving me full control over my data. 🚀</li>
             </ul>
         </div>
-
+        <hr class="my-6 border-t border-gray-300" />
+        <div class="mb-[30px] pb-5 border-b border-[#eee] last:border-b-0">
+            <h2 class="flex items-center gap-2 text-[#d32f2f] text-2xl font-bold">
+                📁 Repository Files
+            </h2>
+            <p class="text-gray-600 my-4">
+                You can view the full repository here: <a href="https://github.com/vibhmitra/experiments/tree/main/YouTubeDataAPI/YoutubeDataInfo-python" class="text-blue-500 hover:underline" target="_blank">vibhmitra/experiments/YouTubeDataAPI/YoutubeDataInfo-python</a>
+            </p>
+            <ul class="list-disc pl-5">
+                <li><a href="https://raw.githubusercontent.com/vibhmitra/experiments/main/YouTubeDataAPI/YoutubeDataInfo-python/LICENSE" class="text-blue-500 hover:underline" target="_blank">LICENSE</a></li>
+                <li><a href="https://raw.githubusercontent.com/vibhmitra/experiments/main/YouTubeDataAPI/YoutubeDataInfo-python/README.md" class="text-blue-500 hover:underline" target="_blank">README.md</a></li>
+                <li><a href="https://raw.githubusercontent.com/vibhmitra/experiments/main/YouTubeDataAPI/YoutubeDataInfo-python/channel_data.py" class="text-blue-500 hover:underline" target="_blank">channel_data.py</a></li>
+                <li><a href="https://raw.githubusercontent.com/vibhmitra/experiments/main/YouTubeDataAPI/YoutubeDataInfo-python/channel_subs_data.py" class="text-blue-500 hover:underline" target="_blank">channel_subs_data.py</a></li>
+                <li><a href="https://raw.githubusercontent.com/vibhmitra/experiments/main/YouTubeDataAPI/YoutubeDataInfo-python/get_youtube_data.py" class="text-blue-500 hover:underline" target="_blank">get_youtube_data.py</a></li>
+                <li><a href="https://raw.githubusercontent.com/vibhmitra/experiments/main/YouTubeDataAPI/YoutubeDataInfo-python/liked_videos.py" class="text-blue-500 hover:underline" target="_blank">liked_videos.py</a></li>
+                <li><a href="https://raw.githubusercontent.com/vibhmitra/experiments/main/YouTubeDataAPI/YoutubeDataInfo-python/playlist_data.py" class="text-blue-500 hover:underline" target="_blank">playlist_data.py</a></li>
+                <li><a href="https://raw.githubusercontent.com/vibhmitra/experiments/main/YouTubeDataAPI/YoutubeDataInfo-python/requirements.txt" class="text-blue-500 hover:underline" target="_blank">requirements.txt</a></li>
+                <li><a href="https://raw.githubusercontent.com/vibhmitra/experiments/main/YouTubeDataAPI/YoutubeDataInfo-python/setup.py" class="text-blue-500 hover:underline" target="_blank">setup.py</a></li>
+                <li><a href="https://raw.githubusercontent.com/vibhmitra/experiments/main/YouTubeDataAPI/YoutubeDataInfo-python/your_data.py" class="text-blue-500 hover:underline" target="_blank">your_data.py</a></li>
+            </ul>
+        </div>
+        
     </div>
     
 </body>
