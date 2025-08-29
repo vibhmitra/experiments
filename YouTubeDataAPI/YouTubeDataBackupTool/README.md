@@ -1,8 +1,8 @@
-# YouTube Data Backup Tool
+# 🔴 YouTube Data Backup Tool 🔴
 
-A Python-based command-line tool to backup your YouTube data including subscriptions, playlists, and video metadata. The tool stores data locally in SQLite database and supports exporting to CSV/JSON formats.
+A Python-based command-line script / tool to backup your YouTube data including subscriptions, playlists, and video metadata. The script stores data locally in SQLite database and supports exporting to CSV/JSON formats.
 
-## Features
+## Features ✨
 
 - Backup YouTube subscriptions
 - Backup playlists (including private playlists)
@@ -14,13 +14,13 @@ A Python-based command-line tool to backup your YouTube data including subscript
 - Progress tracking with tqdm
 - Detailed logging
 
-## Prerequisites
+## Prerequisites 🕶️
 
 - Python 3.7+
 - Google API credentials (client_secret.json)
 - Required Python packages (see Installation)
 
-## Installation
+## Installation 🛠️
 
 1. Clone the repository
 2. Install required packages:
@@ -29,7 +29,7 @@ pip install google-auth-oauthlib google-api-python-client tqdm click
 ```
 3. Place your `client_secret.json` in the `secret/` directory
 
-## Directory Structure
+## Directory Structure 📁
 
 ```
 yt-data-bkp/
@@ -48,7 +48,7 @@ yt-data-bkp/
 └── README.md
 ```
 
-## Usage
+## Usage 🕹️
 
 ### First Time Setup
 
@@ -74,7 +74,7 @@ python yt_backup.py export YOUR_USERNAME --format csv
 python yt_backup.py users
 ```
 
-## Data Storage
+## Data Storage 💾
 
 The tool stores data in SQLite databases with the following tables:
 - subscriptions: YouTube channel subscriptions
@@ -83,24 +83,23 @@ The tool stores data in SQLite databases with the following tables:
 - playlist_items: Videos in playlists
 - sync_meta: Synchronization metadata
 
-## Error Handling
+## Error Handling 💢
 
 - Automatic retries on API failures
 - Detailed logging in logs/yt_backup.log
 - Progress bars for long-running operations
 
-## Security
+## Security 🔒
 
 - Uses OAuth 2.0 for authentication
-- Stores tokens securely per user
 - Supports multiple user accounts
 - Read-only access to YouTube data
 
-## License
+## License 📜
 
 MIT License
 
-## Contributing
+## Contributing 🫰
 
 Feel free to submit issues and enhancement requests!
 
