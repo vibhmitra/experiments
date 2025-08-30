@@ -23,7 +23,7 @@ from google.auth.transport.requests import Request
 
 BASE_PATH = Path(__file__).parent.resolve()
 SCOPES = ['https://www.googleapis.com/auth/youtube.readonly']
-CREDENTIALS_FILE = Path('secret/client_secret.json').resolve()    # Store that cliend secret here
+CREDENTIALS_FILE = Path('secret/client_secret.json').resolve()
 TOKEN_DIR = Path('tokens').resolve()
 LOG_FILE = Path('logs/yt_backup.log').resolve()
 EXPORT_PATH = Path('exports').resolve()         # Ineffective since export path is explicitly set per user in export()
@@ -135,7 +135,11 @@ class YouTubeBackup:
         )""")
         c.execute("""
         CREATE TABLE IF NOT EXISTS sync_meta (
-            playlist_id TEXT PRIMARY KEY, last_count INTEGER
+            playlist_id TEXT PRIMARY KEY,
+            last_count INTEGER,
+            last_sync_time TEXT,
+            last_etag TEXT,
+            last_updated_time TEXT
         )""")
         self.conn.commit()
 
@@ -198,69 +202,133 @@ class YouTubeBackup:
             ))
         self.conn.commit()
 
-    def _should_fetch_playlist(self, playlist_id, new_count):
+    def _should_fetch_playlist(self, playlist_id, new_count, current_etag=None, updated_time=None):
         c = self.conn.cursor()
-        c.execute("SELECT last_count FROM sync_meta WHERE playlist_id=?", (playlist_id,))
+        c.execute("""
+            SELECT last_count, last_sync_time, last_etag, last_updated_time 
+            FROM sync_meta 
+            WHERE playlist_id=?""", (playlist_id,))
         row = c.fetchone()
-        return row is None or new_count > row[0]
+
+        if row is None:
+            logger.info(f'First sync for playlist {playlist_id}')
+            return True
+
+        last_count, last_sync_time, last_etag, last_updated_time = row
+
+        # Check etag if available
+        if current_etag and last_etag:
+            if current_etag != last_etag:
+                logger.info(f'Playlist {playlist_id} etag changed, needs sync')
+                return True
+
+        # Check update timestamp if available
+        if updated_time and last_updated_time:
+            try:
+                last_updated = datetime.fromisoformat(last_updated_time.replace('Z', '+00:00'))
+                current_updated = datetime.fromisoformat(updated_time.replace('Z', '+00:00'))
+                if current_updated > last_updated:
+                    logger.info(f'Playlist {playlist_id} has newer update timestamp')
+                    return True
+            except ValueError as e:
+                logger.warning(f'Error comparing timestamps for {playlist_id}: {e}')
+
+        # Fall back to count comparison
+        if new_count > last_count:
+            logger.info(f'Playlist {playlist_id} item count increased from {last_count} to {new_count}')
+            return True
+
+        logger.info(f'Playlist {playlist_id} is up to date')
+        return False
 
     @retry_on_errors()
     def fetch_playlist_items(self, playlist_id):
         logger.info(f'Fetching items for playlist {playlist_id}')
-        # get current count
         c = self.conn.cursor()
-        c.execute("SELECT item_count FROM playlists WHERE playlist_id=?", (playlist_id,))
-        total = c.fetchone()[0]
-
-        if not self._should_fetch_playlist(playlist_id, total):
-            logger.info(f'No new items in {playlist_id}')
+        
+        # Get playlist metadata from YouTube API
+        playlist_response = self.youtube.playlists().list(
+            part='snippet,contentDetails',
+            id=playlist_id
+        ).execute()
+        
+        if not playlist_response.get('items'):
+            logger.warning(f'Playlist {playlist_id} not found or not accessible')
+            return
+            
+        playlist = playlist_response['items'][0]
+        current_etag = playlist_response.get('etag')
+        total = playlist['contentDetails'].get('itemCount', 0)
+        updated_time = playlist['snippet'].get('publishedAt')
+        
+        if not self._should_fetch_playlist(playlist_id, total, current_etag, updated_time):
+            logger.info(f'No changes detected in playlist {playlist_id}')
             return
 
-        seen = set(r[0] for r in c.execute(
-            "SELECT video_id FROM playlist_items WHERE playlist_id=?", (playlist_id,)
-        ))
-        new_count = 0
-
-        for item in tqdm(self._paginate(
-            'playlistItems',
-            part='snippet,contentDetails',
-            playlistId=playlist_id,
-            maxResults=50
-        ), desc=f'Items {playlist_id}'):
-            vid = item['contentDetails']['videoId']
-            if vid in seen:
-                continue
-            # insert video record
-            vsnip = item['snippet']
+        # Start transaction for atomic updates
+        self.conn.execute("BEGIN TRANSACTION")
+        try:
+            # Clear all existing positions for this playlist
             c.execute("""
-            INSERT OR IGNORE INTO videos
-            (video_id, title, description, channel_title, published_at)
-            VALUES (?, ?, ?, ?, ?)
-            """, (
-                vid,
-                vsnip['title'],
-                vsnip.get('description',''),
-                vsnip.get('videoOwnerChannelTitle',''),
-                item['contentDetails']['videoPublishedAt']
-            ))
-            # insert playlist_item
-            c.execute("""
-            INSERT INTO playlist_items
-            (playlist_id, video_id, position, added_at)
-            VALUES (?, ?, ?, ?)
-            """, (
-                playlist_id,
-                vid,
-                vsnip['position'],
-                vsnip['publishedAt']
-            ))
-            new_count += 1
+                DELETE FROM playlist_items 
+                WHERE playlist_id = ?
+            """, (playlist_id,))
+            
+            new_count = 0
+            for item in tqdm(self._paginate(
+                'playlistItems',
+                part='snippet,contentDetails',
+                playlistId=playlist_id,
+                maxResults=50
+            ), desc=f'Items {playlist_id}'):
+                vid = item['contentDetails']['videoId']
+                vsnip = item['snippet']
+                
+                # Insert or update video record
+                c.execute("""
+                INSERT OR REPLACE INTO videos
+                (video_id, title, description, channel_title, published_at)
+                VALUES (?, ?, ?, ?, ?)
+                """, (
+                    vid,
+                    vsnip['title'],
+                    vsnip.get('description',''),
+                    vsnip.get('videoOwnerChannelTitle',''),
+                    item['contentDetails']['videoPublishedAt']
+                ))
+                
+                # Insert playlist item with current position
+                c.execute("""
+                INSERT OR REPLACE INTO playlist_items
+                (playlist_id, video_id, position, added_at)
+                VALUES (?, ?, ?, ?)
+                """, (
+                    playlist_id,
+                    vid,
+                    vsnip['position'],
+                    vsnip['publishedAt']
+                ))
+                new_count += 1
+                
+            self.conn.commit()
+        except Exception as e:
+            self.conn.rollback()
+            logger.error(f'Error updating playlist items: {e}')
+            raise
 
-        # update sync_meta
+        # update sync_meta with all tracking information
+        now = datetime.now(timezone.utc).isoformat()
         c.execute("""
-        INSERT OR REPLACE INTO sync_meta (playlist_id, last_count)
-        VALUES (?, ?)
-        """, (playlist_id, total))
+        INSERT OR REPLACE INTO sync_meta 
+        (playlist_id, last_count, last_sync_time, last_etag, last_updated_time)
+        VALUES (?, ?, ?, ?, ?)
+        """, (
+            playlist_id,
+            total,
+            now,
+            current_etag,
+            updated_time or now
+        ))
         self.conn.commit()
         logger.info(f'Fetched {new_count} new items for {playlist_id}')
 
