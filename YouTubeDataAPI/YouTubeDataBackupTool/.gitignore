@@ -1,0 +1,34 @@
+# Gitigonre for this project
+
+# Ignore Python bytecode files
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyo
+*.pyd
+*.pyc
+
+
+# Ignore virtual environment directories
+venv/
+env/
+.venv/
+.virtualenv/
+env.bak/
+venv.bak/
+
+# Igonre specific directories and files
+logs/
+tokens/
+secrets/
+*.db
+*.sqlite3
+*.csv
+*.json
+
+
+# google oauth
+client_secrets_*.json
+token_*.pickle
+client_secret_v.json
+*.pickle

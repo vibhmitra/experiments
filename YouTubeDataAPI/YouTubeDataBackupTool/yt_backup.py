@@ -6,7 +6,7 @@ import json
 import time
 import sqlite3
 import logging
-import shutil
+# import shutil
 from pathlib import Path
 from functools import wraps
 from datetime import datetime, timezone
@@ -23,7 +23,7 @@ from google.auth.transport.requests import Request
 
 BASE_PATH = Path(__file__).parent.resolve()
 SCOPES = ['https://www.googleapis.com/auth/youtube.readonly']
-CREDENTIALS_FILE = Path('secret/client_secret.json').resolve()
+CREDENTIALS_FILE = Path('secret/client_secrets_vi.json').resolve()
 TOKEN_DIR = Path('tokens').resolve()
 LOG_FILE = Path('logs/yt_backup.log').resolve()
 EXPORT_PATH = Path('exports').resolve()         # Ineffective since export path is explicitly set per user in export()
@@ -107,7 +107,7 @@ class YouTubeBackup:
             return creds
 
         flow = InstalledAppFlow.from_client_secrets_file(str(CREDENTIALS_FILE), SCOPES)
-        creds = flow.run_local_server(port=0)
+        creds = flow.run_local_server(port=0, open_browser=False)
         with open(token_path, 'w') as f:
             f.write(creds.to_json())
         return creds
