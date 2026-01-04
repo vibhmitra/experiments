@@ -6,6 +6,7 @@
 import requests
 import dotenv
 import os
+import datetime
 from dotenv import load_dotenv
 
 
@@ -14,7 +15,7 @@ load_dotenv()
 # Get API key and playlist ID from environment variables
 API_KEY = os.getenv("YOUTUBE_API_KEY")
 PLAYLIST_ID = os.getenv("YOUTUBE_PLAYLIST_ID")
-BASE_URL = os.getenv("YOUTUBE_API_URL")
+BASE_URL = os.getenv("YOUTUBE_API_URL")        # generally if querying public playlist data: https://www.googleapis.com/youtube/v3/playlistItems
 
 params = {
     "part": "snippet",
@@ -34,9 +35,19 @@ while True:
     response = requests.get(BASE_URL, params=params).json()
     
     for item in response.get("items", []):
-        title = item["snippet"]["title"]
-        added_date = item["snippet"]["publishedAt"]
-        videos.append(f"{title} - Added on {added_date}")
+        snippet = item["snippet"]
+        title = snippet["title"]
+        added_date = snippet["publishedAt"]
+        channel_id = snippet.get("videoOwnerChannelId", "Unknown")         # 1. Get Channel ID
+        channel_name = snippet.get("videoOwnerChannelTitle", "Unknown")     # 2. Get Channel Title
+        
+        # 3. Get Video ID and construct Full URL # Note: If using 'playlistItems', the ID is in snippet['resourceId']['videoId']
+        resource = snippet.get("resourceId", {})
+        video_id = resource.get("videoId")
+        video_url = f"https://www.youtube.com/watch?v={video_id}"
+        
+        # Append the expanded info
+        videos.append(f"{title} by {channel_name} | Channel URL: https://www.youtube.com/channel/{channel_id} | URL: {video_url} | Added On: {added_date}")
     
     next_page_token = response.get("nextPageToken")
     
@@ -44,8 +55,12 @@ while True:
         break  # No more pages to fetch
 
 # Save results to a simple text file
-with open("playlist_videos.txt", "w", encoding="utf-8") as file:
+
+timestamp = datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
+os.makedirs("backups", exist_ok=True)
+filename = f"backups/playlist_videos_{timestamp}.txt"
+
+with open(filename, "w", encoding="utf-8") as file:
     file.write("\n".join(videos))
 
-print("✅ Playlist successfully saved to playlist_videos.txt")
-
+print(f"✅ Playlist successfully saved to {filename}")
