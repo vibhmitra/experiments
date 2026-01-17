@@ -1,5 +1,7 @@
 # converts youtube activity html file to normal csv / excel
 # this is working on backup created on 20250918
+# limitation: the excel creation may fail if database is larger that 10 million records i guess
+# the generated CSV can be viewd using and csv viewer and for larger csv SQLite Browser on Windows is more than enough.
 
 from bs4 import BeautifulSoup
 from dateutil import parser
